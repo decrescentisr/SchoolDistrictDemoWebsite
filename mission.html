@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>School District Website Demo</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Language" content="en-us" />
+
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="description" content="School District Demo" />
+
+
+    <meta name="schooldistrictdemo.com" content="School District Demo" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap and other CSS -->
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129158859-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-129158859-1');
+    </script>
+</head>
+
+<body>
+    <div class="w3-top">
+        <div class="w3-bar" id="myNavbar">
+            <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+                <i class="fa fa-bars"></i>
+            </a>
+            <a href="javascript:void(0);" onclick="toggleFunction()" title="School District Demo Website" class="navbar-brand"><p class="w3-bar-item"> <b>School District</b></p> </a>
+            <a href="contact.html" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+            <a href="social.html" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> SOCIAL</a>
+            <a href="about.html" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
+            <a href="students.html" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-briefcase"></i>&nbsp;STUDENTS</a>
+            <a href="login.aspx" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-briefcase"></i>&nbsp;STAFF</a>
+            <a href="index.html" class="w3-bar-item w3-button"><i class="fa fa-home"></i> &nbsp; HOME</a>
+
+        </div>
+
+        <!-- Navbar on small screens -->
+        <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+            <a href="students.html" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-briefcase"></i>&nbsp;STUDENTS</a>
+            <a href="login.aspx" class="w3-bar-item w3-button"><i class="fa fa-rss"></i> &nbsp;STAFF</a>
+            <a href="about.html" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-user"></i> &nbsp; ABOUT</a>
+            <a href="social.html" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-th"></i>&nbsp;SOCIAL</a>
+            <a href="contact.html" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-envelope"></i> &nbsp;CONTACT</a>
+
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="images/missionhero.jpeg" class="responsive" width="1600" height="800" />
+        <div class="hero-text">
+            <h1 style="font-size:50px">Mission Statement</h1>
+        </div>
+    </div>
+
+    <div class="jumbotron" style="background-color: white;">
+        <h2 style="text-align: center; font-size: 30px; color: black; font-weight: bold;">Mission Statement</h2>
+        <p style="font-weight: bold; text-align: center;">Our mission is to equip students with the highest level Christian education so that they will be equipped for college and the world.</p>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <h3 style="font-weight:bold; font-size: 20px;">Our Beliefs</h3>
+                <ul>
+                    <li><img src="images/ok.png" height="25" width="25" />The curriculum we use lines up with solid biblical principles each student will apply in the world.</li>
+                    <li><img src="images/ok.png" height="25" width="25" />Active physical activity of at least 30mins per day increases attention span and learning comprehension in the classroom.</li>
+                    <li><img src="images/ok.png" height="25" width="25" />Each student has their own learning style and trait which makes them unique.</li>
+                    <li><img src="images/ok.png" height="25" width="25" />Learning is life-long.</li>
+                    <li><img src="images/ok.png" height="25" width="25" />Our schools are safe and inviting to any student.</li>
+                    <li><img src="images/ok.png" height="25" width="25" />We set goals so that students can achieve and develop into the skills required.</li>
+                    <li><img src="images/ok.png" height="25" width="25" />All students deserve a quality education.</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h3 style="font-weight:bold; font-size: 20px;">Our Goals</h3>
+                <ul>
+                    <li><img src="images/ok.png" height="25" width="25" />The School District will implement a biblical curriculum to equip each student for the Matthew 28:18-20 commission.</li>
+                    <li><img src="images/ok.png" height="25" width="25" />The School District will empower students to demonstrate, personal, social, and educational growth.</li>
+                    <li><img src="images/ok.png" height="25" width="25" />Each student will grow based on benchmarks and curriculum provided. This will be measured by quarterly assessments.</li>
+
+                </ul>
+            </div>
+            <div class="col-md-5">
+                <img src="images/mission.jpg" style="float: right; width: 500px; height: 400px;" />
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="jumbotron-footer">
+            <hr style="color:grey">
+            <div class="row">
+                <div class="col-sm-2">
+                    <p><img src="images/schooldistlogosm_edited.jpg" style="width: 150px; height: 90px;" /> </p><br />
+                    <p style="font-size:12px;">School District is a full service school district website focusing on providing information and solutions to parents, educators and students.</p>
+                </div>
+                <div class="col-sm-3">
+                    <h2 style="font-size:25px">Fun Legal Stuff</h2>
+
+                    <a href="terms.html" style="text-decoration:none;">Terms & Conditions</a><br />
+                    <a href="privacy.html" style="text-decoration:none;">Privacy Policy</a><br />
+                </div>
+                <div class="col-sm-3">
+                    <h2 style="font-size: 25px">About School District</h2>
+                    <a href="about.html" style="text-decoration:none;">About Us</a><br />
+
+                </div>
+
+                <div class="col-sm-3">
+                    <h2 style="font-size: 25px">Home</h2>
+                    <a href="index.html" style="text-decoration:none;">Home Page</a><br />
+
+                </div>
+            </div>
+
+        </div>
+        <div class="jumbotron-footer">
+            <p style="text-align:center">&copy; 2019 &nbsp;&nbsp;School District All Rights Reserved. &nbsp;&nbsp; <a href="sitemap.html" style="text-decoration:none;">Site Map</a></p>
+        </div>
+
+    </footer>
+
+    <!-- Add Google Maps -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
+    <script src="js/anime.min.js"></script>
+
+    <script>
+
+        function myMap() {
+            myCenter = new google.maps.LatLng(41.6284458, -87.8550519);
+            var mapOptions = {
+                center: myCenter,
+                zoom: 12, scrollwheel: false, draggable: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: myCenter,
+            });
+            marker.setMap(map);
+        }
+
+        // Change style of navbar on scroll
+        window.onscroll = function () { myFunction() };
+        function myFunction() {
+            var navbar = document.getElementById("myNavbar");
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+            } else {
+                navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+            }
+        }
+
+        // Used to toggle the menu on small screens when clicking on the menu button
+        function toggleFunction() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+    </script>
+</body>
+</html>
