@@ -32,15 +32,18 @@ namespace SchoolDistWeb
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            //Connects to SQL database 
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
 
             try
-            {
+            {   
+                //Opens database connection
                 con.Open();
+                //inserts information to database after form submission
                 string command = "INSERT into Supplies(Teacher,Supply1,Supply2,Supply3,Supply4,Supply5,Supply6,Supply7,Supply8) VALUES(@teacher, @supply1, @supply2, @supply3, @supply4, @supply5, @supply6, @supply7, @supply8)";
 
                 SqlCommand com = new SqlCommand(command, con);
-
+                //Adds parameters with value to database based on information submitted in the form
                 com.Parameters.AddWithValue("@teacher", txtTeacher.Text);
                 com.Parameters.AddWithValue("@supply1", txtSupply1.Text);
                 com.Parameters.AddWithValue("@supply2", txtSupply2.Text);
@@ -54,18 +57,19 @@ namespace SchoolDistWeb
                 com.ExecuteNonQuery();
                 lblMessage.Visible = true;
             }
-            catch (Exception ex)
+            catch (Exception ex) //posts exception if system error
             {
                 lblMessage.Text = "Something went wrong. Please try again.";
                 throw;
             }
             finally
             {
-                con.Close();
-                Response.AddHeader("REFRESH", "10;URL=portal.html");
+                con.Close(); //Closes connection
+                Response.AddHeader("REFRESH", "10;URL=portal.html"); //Refreshes and redirects to portal.html within 10s.
             }
         }
-
+        
+        //Clear method when user clicks clear button
         protected void btnClear_Click(object sender, EventArgs e)
         {
             txtTeacher.Text = string.Empty;
