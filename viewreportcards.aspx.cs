@@ -41,7 +41,7 @@ namespace SchoolDistWeb
             string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString; //Connects to database through ConnectionString in the Web.Config file
             using (SqlConnection con = new SqlConnection(constr))
             {
-                using (SqlCommand cmd = new SqlCommand()) //Represents a set of data commands and a database connection that are used to fill the DataSet and update a SQL Server database. 
+                using (SqlCommand cmd = new SqlCommand()) //Represents a Transact-SQL statement or stored procedure to execute against a SQL Server database. This class cannot be inherited.
                 {
                     cmd.CommandText = "SELECT Name, Data, ContentType from Cards WHERE Id=@Id"; //SQL Command to select information to list within gridview
                     cmd.Parameters.AddWithValue("@Id", id); //Adds parameters with value to database based on information submitted in the form
