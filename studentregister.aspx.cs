@@ -67,7 +67,7 @@ namespace SchoolDistWeb
             {
                 con.Open(); //Opens connection
                 string command = "INSERT INTO Students(FirstName,LastName,Email,Phone,DOB,Grade,Teacher) VALUES(@firstname, @lastname, @email, @phone, @dob, @grade, @teacher)";
-                SqlCommand com = new SqlCommand(command, con); //Represents a set of data commands and a database connection that are used to fill the DataSet and update a SQL Server database. 
+                SqlCommand com = new SqlCommand(command, con); //Represents a Transact-SQL statement or stored procedure to execute against a SQL Server database. This class cannot be inherited.
                 //Adds parameters with value to database based on information submitted in the form
                 com.Parameters.AddWithValue("@firstname", txtFirst.Text);
                 com.Parameters.AddWithValue("@lastname", txtLast.Text);
