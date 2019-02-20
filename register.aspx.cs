@@ -18,14 +18,16 @@ namespace SchoolDistWeb
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString); //Connects to database through ConnectionString in the Web.Config file
 
             try
             {
-                con.Open();
+                con.Open(); //Opens database connection
+                //inserts information to database after form submission
                 string command = "INSERT INTO Register(Username,FirstName,LastName,Password,Confirm,DOB,Email,Phone,Security) VALUES(@username, @firstname, @lastname, @password, @confirm, @dob, @email, @phone,@security)";
                 SqlCommand com = new SqlCommand(command, con);
-
+                
+                //Adds parameters with value to database based on information submitted in the form
                 com.Parameters.AddWithValue("@username", txtUsername.Text);
                 com.Parameters.AddWithValue("@firstname", txtFirst.Text);
                 com.Parameters.AddWithValue("@lastname", txtLast.Text);
@@ -42,17 +44,18 @@ namespace SchoolDistWeb
             }
             catch (Exception ex)
             {
-                lblMessage.Text = "Something went wrong. Please try again.";
+                lblMessage.Text = "Something went wrong. Please try again."; //posts exception if system error
                 throw;
             }
             finally
             {
-                con.Close();
-                Response.AddHeader("REFRESH", "10;URL=login.aspx");
+                con.Close(); //Closes connection
+                Response.AddHeader("REFRESH", "10;URL=login.aspx"); //Refreshes and redirects to portal.html within 10s.
             }
 
         }
 
+        //Clear method when user clicks clear button
         protected void btnClear_Click(object sender, EventArgs e)
         {
             txtFirst.Text = string.Empty;
