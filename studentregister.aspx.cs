@@ -33,43 +33,42 @@ namespace SchoolDistWeb
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            // dataLayer = new DataLayer();
-            // myDict = dataLayer.getStudents(Session["FirstName"].ToString());
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+            
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString); //Connects to database through ConnectionString in the Web.Config file
 
-            string filename = Path.GetFileName(fileupPicture.PostedFile.FileName);
-            string contentType = fileupPicture.PostedFile.ContentType;
-            using (Stream fs = fileupPicture.PostedFile.InputStream)
+            string filename = Path.GetFileName(fileupPicture.PostedFile.FileName); //Gets file name from file upload control on .aspx. 
+            string contentType = fileupPicture.PostedFile.ContentType; //Verifies content type
+            using (Stream fs = fileupPicture.PostedFile.InputStream) //Gets the underlying HttpPostedFile object for a file that is uploaded by using the FileUpload control.
             {
-                using (BinaryReader br = new BinaryReader(fs))
+                using (BinaryReader br = new BinaryReader(fs)) //Reads primitive data types as binary values in a specific encoding.
                 {
-                    byte[] bytes = br.ReadBytes((Int32)fs.Length);
+                    byte[] bytes = br.ReadBytes((Int32)fs.Length); //Uses Int32 to read bytes
                     string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                    using (SqlConnection connection = new SqlConnection(constr))
+                    using (SqlConnection connection = new SqlConnection(constr)) 
                     {
-                        string query = "INSERT into Photo(Name,ContentType,Data) VALUES(@Name, @ContentType, @Data)";
-                        using (SqlCommand cmd = new SqlCommand(query))
+                        string query = "INSERT into Photo(Name,ContentType,Data) VALUES(@Name, @ContentType, @Data)"; //inserts information to database after form submission
+                        using (SqlCommand cmd = new SqlCommand(query)) //Represents a set of data commands and a database connection that are used to fill the DataSet and update a SQL Server database.
                         {
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@Name", filename);
+                            cmd.Connection = con; //Initializes command connection
+                            cmd.Parameters.AddWithValue("@Name", filename); //Adds parameters with value to database based on information submitted in the form
                             cmd.Parameters.AddWithValue("@ContentType", contentType);
                             cmd.Parameters.AddWithValue("@Data", bytes);
-                            con.Open();
+                            con.Open(); //Opens database connection
                             cmd.ExecuteNonQuery();
-                            con.Close();
+                            con.Close(); //Closes connection
                         }
                     }
                 }
             }
 
 
-
+            //Inserts into Students database for rest of form information outside of file upload control
             try
             {
-                con.Open();
+                con.Open(); //Opens connection
                 string command = "INSERT INTO Students(FirstName,LastName,Email,Phone,DOB,Grade,Teacher) VALUES(@firstname, @lastname, @email, @phone, @dob, @grade, @teacher)";
-                SqlCommand com = new SqlCommand(command, con);
-
+                SqlCommand com = new SqlCommand(command, con); //Represents a set of data commands and a database connection that are used to fill the DataSet and update a SQL Server database. 
+                //Adds parameters with value to database based on information submitted in the form
                 com.Parameters.AddWithValue("@firstname", txtFirst.Text);
                 com.Parameters.AddWithValue("@lastname", txtLast.Text);
                 com.Parameters.AddWithValue("@email", txtEmail.Text);
@@ -83,7 +82,7 @@ namespace SchoolDistWeb
                 lblMessage.Visible = true;
 
             }
-            catch (Exception ex)
+            catch (Exception ex) //posts exception if system error
             {
                 lblMessage.Text = "Something went wrong. Please try again.";
                 throw;
@@ -91,11 +90,12 @@ namespace SchoolDistWeb
             }
             finally
             {
-                con.Close();
-                Response.AddHeader("REFRESH", "10;URL=portal.html");
+                con.Close(); //Closes connection
+                Response.AddHeader("REFRESH", "10;URL=portal.html"); //Refreshes and redirects to portal.html within 10s.
             }
         }
-
+       
+        //Clear method when user clicks clear button
         protected void btnClear_Click(object sender, EventArgs e)
         {
             txtFirst.Text = string.Empty;
