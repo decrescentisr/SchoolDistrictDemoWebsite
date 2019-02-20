@@ -54,64 +54,67 @@ namespace SchoolDistWeb
                    }
                }
            }*/
+           
+         //Allows user to download files within the gridview by clicking on "Download" linkbutton    
         protected void DownloadFile(object sender, EventArgs e)
         {
-            int id = int.Parse((sender as LinkButton).CommandArgument);
+            int id = int.Parse((sender as LinkButton).CommandArgument); //Parses LinkButton
             byte[] bytes;
             string fileName, contentType;
-            string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString; //Connects to database through ConnectionString in the Web.Config file
             using (SqlConnection con = new SqlConnection(constr))
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand cmd = new SqlCommand()) //Represents a Transact-SQL statement or stored procedure to execute against a SQL Server database. This class cannot be inherited.
                 {
-                    cmd.CommandText = "SELECT Name, Data, ContentType from Photo WHERE Id=@Id";
-                    cmd.Parameters.AddWithValue("@Id", id);
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    cmd.CommandText = "SELECT Name, Data, ContentType from Photo WHERE Id=@Id"; //SQL command line to select information and list within the gridview control
+                    cmd.Parameters.AddWithValue("@Id", id); //Adds parameters with value to database based on information submitted in the form
+                    cmd.Connection = con; //Connects to the command
+                    con.Open(); //Opens the connection
+                    using (SqlDataReader sdr = cmd.ExecuteReader()) //Represents a set of data commands and a database connection that are used to fill the DataSet and update a SQL Server database.   
                     {
-                        sdr.Read();
+                        sdr.Read(); //Reads data
                         bytes = (byte[])sdr["Data"];
-                        contentType = sdr["ContentType"].ToString();
+                        contentType = sdr["ContentType"].ToString(); //Lists ContentType to string
                         fileName = sdr["Name"].ToString();
                     }
-                    con.Close();
+                    con.Close(); //Closes connection
                 }
-                Response.Clear();
-                Response.Buffer = true;
-                Response.Charset = "";
-                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Response.ContentType = contentType;
-                Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
-                Response.BinaryWrite(bytes);
-                Response.Flush();
-                Response.End();
+                Response.Clear(); //Clears all content output from the buffer stream.
+                Response.Buffer = true; //Gets or sets a value indicating whether to buffer output and send it after the complete response is finished processing.
+                Response.Charset = ""; //Gets or sets the HTTP character set of the output stream.
+                Response.Cache.SetCacheability(HttpCacheability.NoCache); //Gets the caching policy (such as expiration time, privacy settings, and vary clauses) of a Web page.
+                Response.ContentType = contentType; //Gets or sets the HTTP MIME type of the output stream.
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName); //Adds an HTTP header to the output stream.
+                Response.BinaryWrite(bytes); //Writes a string of binary characters to the HTTP output stream.
+                Response.Flush(); //Sends all currently buffered output to the client.
+                Response.End(); //Sends all currently buffered output to the client, stops execution of the page, and raises the EndRequest event.
 
             }
         }
 
+        //Method that allows users to search for students using first and last name strings within textbox controls  
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+            string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString; //Connects to database through ConnectionString in the Web.Config file 
+            using (SqlConnection con = new SqlConnection(constr)) 
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand cmd = new SqlCommand()) //Represents a Transact-SQL statement or stored procedure to execute against a SQL Server database. This class cannot be inherited.
                 {
-                    string sql = "SELECT Students.FirstName, Students.LastName, Students.Email, Students.Phone, Students.DOB, Students.Grade, Students.Teacher, Photo.Id, Photo.Name from Students, Photo";
-                    if (!string.IsNullOrEmpty(txtFirst.Text.Trim()))
+                    string sql = "SELECT Students.FirstName, Students.LastName, Students.Email, Students.Phone, Students.DOB, Students.Grade, Students.Teacher, Photo.Id, Photo.Name from Students, Photo"; //SQL statement which selects information and lists within gridview
+                    if (!string.IsNullOrEmpty(txtFirst.Text.Trim())) //If textbox controls are empty, list all data
                     {
                         sql += " WHERE LastName LIKE @LastName + '%'";
                         cmd.Parameters.AddWithValue("@LastName", txtLast.Text.Trim());
 
                     }
-                    cmd.CommandText = sql;
-                    cmd.Connection = con;
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    cmd.CommandText = sql; //Gets or sets the Transact-SQL statement, table name or stored procedure to execute at the data source.
+                    cmd.Connection = con; //Connects to command
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd)) //Represents a set of data commands and a database connection that are used to fill the DataSet and update a SQL Server database. 
                     {
-                        DataTable dt = new DataTable();
-                        sda.Fill(dt);
-                        grdRoster.DataSource = dt;
-                        grdRoster.DataBind();
+                        DataTable dt = new DataTable(); //Uses data table
+                        sda.Fill(dt); //Fills data table with data
+                        grdRoster.DataSource = dt; //Uses data source for gridview control
+                        grdRoster.DataBind(); //Binds data to gridview control
                     }
                 }
             }
