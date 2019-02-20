@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -33,25 +33,28 @@ namespace SchoolDistWeb
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString); //Connects to database through ConnectionString in the Web.Config file
             try
             {
-                string filename = Path.GetFileName(upReport.PostedFile.FileName);
-                string contentType = upReport.PostedFile.ContentType;
+                string filename = Path.GetFileName(upReport.PostedFile.FileName); //Gets file name from file upload control
+                string contentType = upReport.PostedFile.ContentType; //Verifies content type
                 using (Stream fs = upReport.PostedFile.InputStream)
                 {
-                    using (BinaryReader br = new BinaryReader(fs))
+                    using (BinaryReader br = new BinaryReader(fs)) //Reads primitive data types as binary values in a specific encoding.
                     {
-                        byte[] bytes = br.ReadBytes((Int32)fs.Length);
+                        byte[] bytes = br.ReadBytes((Int32)fs.Length); //Uses Int32 to read bytes
                         string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                        using (SqlConnection connection = new SqlConnection(constr))
+                        using (SqlConnection connection = new SqlConnection(constr)) //Connects to database
                         {
-                            con.Open();
+                            con.Open(); //Opens database connection
+                            //inserts information to database after form submission
                             string query = "INSERT into Cards(FirstName,LastName,Name,ContentType,Data) VALUES(@FirstName, @LastName, @Name, @ContentType, @Data)";
-                            using (SqlCommand cmd = new SqlCommand(query))
+                            using (SqlCommand cmd = new SqlCommand(query)) //Represents a set of data commands and a database connection that are used to fill the DataSet and update a SQL Server database. 
                             {
-                                cmd.Connection = con;
-                                cmd.Parameters.AddWithValue("@firstname", txtFirstName.Text);
+                                cmd.Connection = con; //Connects to SqlCommand
+                                
+                                //Adds parameters with value to database based on information submitted in the form
+                                cmd.Parameters.AddWithValue("@firstname", txtFirstName.Text);  
                                 cmd.Parameters.AddWithValue("@lastname", txtLastName.Text);
                                 cmd.Parameters.AddWithValue("@Name", filename);
                                 cmd.Parameters.AddWithValue("@ContentType", contentType);
@@ -67,7 +70,7 @@ namespace SchoolDistWeb
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception ex) //posts exception if system error
             {
                 lblMessage.Text = "Something went wrong. Please try again.";
                 throw;
@@ -75,8 +78,8 @@ namespace SchoolDistWeb
             }
             finally
             {
-                con.Close();
-                Response.AddHeader("REFRESH", "10;URL=portal.html");
+                con.Close(); //Closes connection 
+                Response.AddHeader("REFRESH", "10;URL=portal.html"); //Refreshes and redirects to portal.html within 10s.
             }
 
 
