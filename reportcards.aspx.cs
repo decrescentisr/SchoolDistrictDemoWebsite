@@ -49,7 +49,7 @@ namespace SchoolDistWeb
                             con.Open(); //Opens database connection
                             //inserts information to database after form submission
                             string query = "INSERT into Cards(FirstName,LastName,Name,ContentType,Data) VALUES(@FirstName, @LastName, @Name, @ContentType, @Data)";
-                            using (SqlCommand cmd = new SqlCommand(query)) //Represents a set of data commands and a database connection that are used to fill the DataSet and update a SQL Server database. 
+                            using (SqlCommand cmd = new SqlCommand(query)) //Represents a Transact-SQL statement or stored procedure to execute against a SQL Server database. This class cannot be inherited.
                             {
                                 cmd.Connection = con; //Connects to SqlCommand
                                 
